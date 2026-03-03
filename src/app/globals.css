@@ -1,0 +1,487 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary: #06355d;
+  --primary-dark: #042a4a;
+  --secondary: #031c35;
+  --text-light: #f8fafc;
+  --text-dark: #1a202c;
+  --section-padding: 4rem;
+  --grid-gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-padding: 6rem;
+    --grid-gap: 2rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html, :root {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 64px; /* This accounts for the fixed navbar */
+}
+
+body {
+  font-family: var(--font-arvo);
+  @apply text-gray-900 bg-white;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+#__next {
+  min-height: 100vh;
+  position: relative;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    @apply overflow-x-hidden p-0 m-0;
+    height: 100%;
+  }
+}
+
+@layer components {
+  .theme-button-primary {
+    @apply bg-white text-primary px-4 py-2 md:px-8 md:py-3 rounded-full font-medium 
+    hover:bg-white/90 transition-colors inline-flex items-center gap-2;
+  }
+
+  .theme-button-secondary {
+    @apply bg-white/10 text-white px-4 py-2 md:px-8 md:py-3 rounded-full font-medium 
+    hover:bg-white/20 transition-colors;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+  }
+
+  .container {
+    @apply px-0 md:px-6 lg:px-8 mx-auto;
+    max-width: 1280px;
+  }
+
+  .grid-layout {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-[var(--grid-gap)];
+  }
+
+  .section-padding {
+    @apply py-[var(--section-padding)];
+  }
+}
+
+/* Base styles */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold tracking-tight;
+}
+
+h1 {
+  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight;
+}
+
+h2 {
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-tight;
+}
+
+h3 {
+  @apply text-base sm:text-lg md:text-xl lg:text-2xl leading-tight;
+}
+
+h4 {
+  @apply text-sm sm:text-base md:text-lg lg:text-xl leading-tight;
+}
+
+.heading-primary {
+  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+.heading-secondary {
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold;
+}
+
+.heading-tertiary {
+  @apply text-base sm:text-lg md:text-xl lg:text-2xl font-medium;
+}
+
+.subheading {
+  @apply text-base sm:text-lg md:text-xl lg:text-2xl font-normal text-gray-600;
+}
+
+.text-label {
+  @apply text-sm sm:text-base md:text-lg font-medium;
+}
+
+.text-body {
+  @apply text-sm sm:text-base leading-relaxed;
+}
+
+.text-small {
+  @apply text-xs sm:text-sm leading-normal;
+}
+
+/* Component styles */
+.grid-layout {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-[var(--grid-gap)];
+}
+
+.section-padding {
+  @apply py-[var(--section-padding)];
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary-dark to-primary;
+}
+
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.image-overlay {
+  @apply absolute inset-0 bg-black/50 transition-opacity duration-300;
+}
+
+.grid-item {
+  @apply relative overflow-hidden rounded-lg;
+}
+
+/* Custom shape for hero section */
+@keyframes fadeTransparency {
+  0% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes textColorChange {
+  0% {
+    color: white;
+  }
+  50% {
+    color: #06355d;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.clip-hero {
+  clip-path: polygon(0 0, 45% 0, 35% 100%, 0% 100%);
+  animation: fadeTransparency 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (max-width: 768px) {
+  .clip-hero {
+    clip-path: polygon(0 0, 45% 0, 0% 100%, 0% 100%);
+  }
+}
+
+.hero-image-container {
+  transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform: scale(1.1);
+}
+
+.hero-image-container.animate {
+  transform: scale(1);
+}
+
+.hero-text {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealText 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes revealText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text-animate {
+  animation: textColorChange 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* 3D perspective for program cards */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Responsive images */
+.responsive-image {
+  @apply w-full h-auto object-cover;
+}
+
+/* Responsive cards */
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden;
+  @apply transform transition-transform duration-300;
+}
+
+.card:hover {
+  @apply shadow-lg -translate-y-1;
+}
+
+/* Responsive grid containers */
+.grid-container {
+  @apply grid grid-cols-1 gap-4 w-full;
+  @apply sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+/* Mobile-friendly buttons */
+.mobile-friendly-button {
+  @apply w-full sm:w-auto;
+  @apply text-center py-3 px-6;
+  @apply text-sm sm:text-base;
+}
+
+/* Mobile navigation styles */
+.mobile-nav {
+  @apply fixed inset-0 bg-white z-50;
+  @apply transform transition-transform duration-300;
+}
+
+.mobile-nav.hidden {
+  @apply -translate-x-full;
+}
+
+.mobile-nav.visible {
+  @apply translate-x-0;
+}
+
+/* Mobile-friendly forms */
+.form-group {
+  @apply space-y-2 mb-4;
+}
+
+.form-input {
+  @apply w-full px-4 py-2 rounded-lg;
+  @apply text-base sm:text-lg;
+  @apply border border-gray-300;
+}
+
+/* Responsive tables */
+.responsive-table {
+  @apply w-full overflow-x-auto;
+  @apply -mx-4 sm:mx-0;
+  @apply shadow-sm;
+}
+
+.responsive-table table {
+  @apply min-w-full;
+}
+
+/* Mobile-friendly spacing */
+.mobile-spacing {
+  @apply px-4 sm:px-6 md:px-8;
+  @apply py-4 sm:py-6 md:py-8;
+}
+
+/* Touch-friendly elements */
+.touch-target {
+  @apply min-h-[44px] min-w-[44px];
+  @apply flex items-center justify-center;
+}
+
+/* Vertical line overlays */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.section-padding {
+  @apply py-20;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    @apply py-12;
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Success Animation */
+.scale-up-center {
+  animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #06355d;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #06355d;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  position: relative;
+  margin: 0 auto;
+}
+
+.checkmark_stem {
+  position: absolute;
+  width: 3px;
+  height: 25px;
+  background-color: #06355d;
+  left: 28px;
+  top: 6px;
+  border-radius: 3px;
+  transform: rotate(45deg);
+  animation: stem-animation 0.3s ease-in 0.9s forwards;
+  opacity: 0;
+}
+
+.checkmark_kick {
+  position: absolute;
+  width: 12px;
+  height: 3px;
+  background-color: #06355d;
+  left: 16px;
+  top: 26px;
+  border-radius: 3px;
+  transform: rotate(-45deg);
+  animation: kick-animation 0.3s ease-in 0.9s forwards;
+  opacity: 0;
+}
+
+@keyframes stem-animation {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 25px;
+    opacity: 1;
+  }
+}
+
+@keyframes kick-animation {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 12px;
+    opacity: 1;
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #06355d;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* Beam border effect */
+.beam-border-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 2px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.beam-border-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 60%,
+    #042a4a 75%,
+    #06355d 80%,
+    #0d4775 85%,
+    #06355d 90%,
+    #042a4a 95%,
+    transparent 100%
+  );
+  animation: beam-rotate 3s linear infinite;
+}
+
+.beam-border-wrapper > * {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: inherit;
+}
+
+@keyframes beam-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

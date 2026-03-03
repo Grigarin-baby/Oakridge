@@ -1,0 +1,53 @@
+/* Theme Configuration */
+:root {
+  --primary: #06355d;
+  --primary-dark: #042a4a;
+  --secondary: #1A1A1A;
+  --text-light: #FFFFFF;
+  --text-dark: #1A1A1A;
+  --background-light: #FFFFFF;
+  --background-dark: #1A1A1A;
+  --grid-gap: 2rem;
+  --section-padding: 6rem 0;
+}
+
+/* Theme Utilities */
+.theme-dark {
+  --primary: #0d4775;
+  --primary-dark: #06355d;
+  --text-light: #FFFFFF;
+  --text-dark: #F3F3F3;
+  --background-light: #1A1A1A;
+  --background-dark: #0A0A0A;
+}
+
+/* Theme Components */
+.theme-container {
+  @apply container mx-auto px-4 md:px-6;
+}
+
+.theme-section {
+  @apply py-16 md:py-24;
+}
+
+.theme-grid {
+  @apply grid grid-cols-1 md:grid-cols-12 gap-8;
+}
+
+.theme-heading {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+}
+
+.theme-subheading {
+  @apply text-xl md:text-2xl text-gray-600 mt-4;
+}
+
+.theme-button-primary {
+  @apply bg-primary text-white px-8 py-3 rounded-lg font-semibold 
+  hover:bg-primary-dark transition-colors duration-300;
+}
+
+.theme-button-secondary {
+  @apply border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold 
+  hover:bg-primary hover:text-white transition-colors duration-300;
+} 
